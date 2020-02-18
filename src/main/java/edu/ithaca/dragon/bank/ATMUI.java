@@ -53,16 +53,21 @@ public class ATMUI {
         password = in.nextLine();
 
 
-        System.out.println("ID: " + acctID + "Password: " + password); //CE manaul test remove later
-
+        System.out.println("ID: " + acctID + " Password: " + password); //CE manaul test remove later
         //check credentials
-        //if( this.basAPI.confirmCredentials(acctID,password)){
-        if(true){
-            this.currState = State.LOGGEDIN;
-            System.out.println("Successfully Logged In");
-        }
+        //if( this.basAPI.confirmCredentials(acctID,password)) {
+            if (this.basAPI.confirmCredentials(acctID,password)) {
+                System.out.println("hey");
+                this.currState = State.LOGGEDIN;
+                System.out.println("Successfully Logged In");
+            }else{
+                System.out.println(":(");
+                currState = State.NOTLOGGED;
+                System.out.println("--LOGGED OUT--");
+                System.exit(0);
 
-
+            }
+/*
         while(this.currState != State.LOGGEDIN) {
             System.out.println("You've entered invalid username or password ");
 
@@ -72,17 +77,13 @@ public class ATMUI {
             System.out.println("Please enter valid Password: ");
             password = in.nextLine();
 
-            try{
                 if( this.basAPI.confirmCredentials(acctID,password)){
                     this.currState = State.LOGGEDIN;
                 }
-            }
-            catch(IllegalArgumentException i){
 
-                //restart while loop
-            }
 
         }
+        */
 
         if(this.basAPI.findAccountWithId(acctID).getAcctFrozen()){
             this.currState = State.FROZEN;

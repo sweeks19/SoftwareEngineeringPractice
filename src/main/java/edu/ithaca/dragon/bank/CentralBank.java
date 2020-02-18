@@ -41,8 +41,8 @@ public class CentralBank implements AdvancedAPI, AdminAPI, BasicAPI {
                 return accountList.get(i);
             }
         }
-        throw new NullPointerException("Null Pointer - ID not found");
-        //return null;
+        //throw new NullPointerException("Null Pointer - ID not found");
+        return null;
 
     }
 
@@ -51,7 +51,8 @@ public class CentralBank implements AdvancedAPI, AdminAPI, BasicAPI {
 
     public boolean confirmCredentials(String acctId, String password) throws IllegalArgumentException {
         if(findAccountWithId(acctId)==null){
-            throw new IllegalArgumentException("confirmCredentials: Can not find ID");
+            //throw new IllegalArgumentException("confirmCredentials: Can not find ID");
+            return false;
         }else{
             if(findAccountWithId(acctId)!= null && findAccountWithId(acctId).getAcctPass()==password){
                 return true;
