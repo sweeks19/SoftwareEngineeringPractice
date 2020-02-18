@@ -47,12 +47,20 @@ public class ATMUItest {
 
         Scanner in = new Scanner (System.in);
         System.out.println("Please enter account ID:");
-        System.out.println("[Please enterB000]: ");
+        System.out.println("[Please enter:B000]: ");
         acctID = in.nextLine();
+        while(!acctID.equals("B000")){
+            System.out.println("[FAIL| Please re-enter: B000]: ");
+            acctID = in.nextLine();
+        }
 
         System.out.println("Please enter Password");
         System.out.println("[Please enter: 000000]: ");
         password = in.nextLine();
+        while(!password.equals("000000")){
+            System.out.println("[FAIL| Please re-enter: 000000]: ");
+            password = in.nextLine();
+        }
 
 //        System.out.println("ID: " + acctID + "Password: " + password); //CE manaul test remove later
 
@@ -93,7 +101,7 @@ public class ATMUItest {
             System.out.println("You've been logged out. Program Terminated");
         }
 
-        char opt;
+        char opt= ' ';
         ArrayList<Character> set = new ArrayList<>();
         set.add('D');
         set.add('W');
@@ -107,27 +115,54 @@ public class ATMUItest {
                     "to log-out enter 'X':  ");
             if(index == 1){
                 System.out.println("[Please enter D]: ");
+                opt = (char) System.in.read();
+                char choice = opt;
+                while (choice != 'D'){
+                    System.out.println("[FAIL| Please re-enter: D]: ");
+
+                    opt = (char) System.in.read();
+                    choice = opt;
+                }
                 index +=1;
             }else if(index == 2){
                 System.out.println("[Please enter W]: ");
+                opt = (char) System.in.read();
+                while (opt != 'W'){
+                    System.out.println("[FAIL| Please re-enter: W]: ");
+                    opt = (char) System.in.read();
+                }
                 index+=1;
             }
             else if(index == 3){
                 System.out.println("[Please enter T]: ");
+                opt = (char) System.in.read();
+                while (opt != 'T'){
+                    System.out.println("[FAIL| Please re-enter: T]: ");
+                    opt = (char) System.in.read();
+                }
                 index+=1;
             }else if(index == 4){
                 System.out.println("[Please enter X to exit]: ");
+                opt = (char) System.in.read();
+                while (opt != 'X'){
+                    System.out.println("[FAIL| Please re-enter: X]: ");
+                    opt = (char) System.in.read();
+                }
             }
 
-                    opt = (char) System.in.read();
+
             //deposit
             if(opt == 'D'){
                 if(acctFrozenCheck(acctID)){
                     break;
                 }
                 System.out.println("Please enter deposit amount (ie. 1.00): ");
-                System.out.println("[Please enter: 100] : ");
+                System.out.println("Please enter: 100] : ");
                 double amt = in.nextDouble();
+                while (amt != 100){
+                    System.out.println("[FAIL| Please re-enter: 100]: ");
+                    amt = in.nextDouble();
+                }
                 try{
                     this.basAPI.findAccountWithId(acctID).deposit(amt);
                     System.out.println("Withdraw Complete" );
@@ -152,6 +187,11 @@ public class ATMUItest {
                 System.out.println("Please enter withdraw amount (ie. 1.00): ");
                 System.out.println("[Please enter: 100]: ");
                 double amt = in.nextDouble();
+                while (amt != 100){
+                    System.out.println("[FAIL| Please re-enter: 100]: ");
+                    amt = in.nextDouble();
+                }
+
                 try{
                     this.basAPI.findAccountWithId(acctID).withdraw(amt);
                     System.out.println("Withdraw Complete" );
@@ -179,6 +219,10 @@ public class ATMUItest {
                 System.out.println("Enter account ID of the account you'd like to transfer to:  ");
                 System.out.println("[Please enter: B001]: ");
                 IDin = in.next();
+                while (!IDin.equals("B001")){
+                    System.out.println("[FAIL| Please re-enter: B001]: ");
+                    IDin = in.next();
+                }
 
 
                 try{
@@ -196,6 +240,11 @@ public class ATMUItest {
                 System.out.println("Please enter transfer amount (ie. 1.00): ");
                 System.out.println("[Please enter: 50]: ");
                 double amt = in.nextDouble();
+                while (amt!=50){
+                    System.out.println("[FAIL| Please re-enter: 50]: ");
+                    amt = in.nextDouble();
+                }
+
 
                 try{
                     this.basAPI.findAccountWithId(acctID).transfer(amt,acctID2);
