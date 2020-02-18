@@ -16,11 +16,11 @@ public class BankAccount {
     /**
      * @throws IllegalArgumentException if email is invalid
      */
-    public BankAccount(String email, double startingBalance) {
+    public BankAccount(String email, String acctId, String acctPass, double startingBalance) {
         this.acctFrozen = false;
         this.susAct= false;
-        this.acctId = "B000";
-        this.acctPass = "000000";
+        this.acctId = acctId;
+        this.acctPass = acctPass;
         if (isEmailValid(email) && isAmountValid(startingBalance)) {
             this.email = email;
             this.balance = startingBalance;
@@ -71,6 +71,9 @@ public class BankAccount {
             if (!(balance < amount) && amount > 0) {
                 balance -= amount;
                 history.add("Withdraw: " + amount);
+            }
+            else{
+                throw new IllegalArgumentException("withdraw amount: " + amount + " is invalid, amount cannot be withdrawn");
             }
         }else{
             throw new IllegalArgumentException("withdraw amount: " + amount + " is invalid, amount cannot be withdrawn");
